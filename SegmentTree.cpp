@@ -110,29 +110,6 @@ int main()
   vector<long long> v(n);
   for (long long& i : v) cin >> i;
   SegmentTree<long long> myTree(v);
-  int q; cin >> q;
-  while (q--)
-  {
-    char op; cin >> op;
-    switch (op)
-    {
-    case 'g':
-      int num; cin >> num; num--;
-      cout << myTree.getSum(num, num) << " ";
-      break;
-    case 'a':
-      int l, r, x; cin >> l >> r >> x; l--; r--;
-      myTree.addOnSeg(l, r, x);
-    default:
-      break;
-    }
-  }
-  // cout << myTree;
-  // myTree.addOnSeg(0, 3, 1);
-  // cout << myTree;
-  // myTree.addOnSeg(0, 3, 1);
-  // myTree.addOnSeg(0, 3, 1);
-  // cout << myTree;
-  // cout << myTree.getSum(0, 0);
+  cout << myTree;
   return 0;
 }
