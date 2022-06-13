@@ -24,7 +24,7 @@ class SegmentTree
         SegmentTree(const vector<T>& v) // конструктор дерева
         {
             size_t arrSize = v.size();
-            treePower = 1; // номер первой першины последнего слоя
+            treePower = 1; // номер вершины первого листа
             while (treePower < arrSize) {
                 treePower *= 2;
             }
@@ -49,7 +49,7 @@ class SegmentTree
           }
           subTree[v] = 0;
         }
-        inline T getSum(int l, int r) // для обращения из вне
+        inline T getSum(int l, int r) // для обращения вне класса к getSum()
         {
           return getSum(l, r, 0, treePower - 1, 1);
         }
@@ -73,7 +73,7 @@ class SegmentTree
           return sum;
         }
         
-        inline void addOnSeg(int l, int r, T add) // для обращения из вне
+        inline void addOnSeg(int l, int r, T add) // для обращения вне класса к addOnSeg()
         {
           return addOnSeg(l, r, add, 0, treePower - 1, 1);
         }
@@ -95,6 +95,8 @@ class SegmentTree
           {
             addOnSeg(max(tm + 1, l), r, add, tm + 1, tr, v * 2 + 1);
           }
+          relax(v * 2);
+          relax(v * 2 + 1);
           tree[v] = tree[v * 2] + tree[v * 2 + 1];
         }
     private:
@@ -102,14 +104,3 @@ class SegmentTree
         vector<T> tree;
         vector<T> subTree;
 };
-
-int main() 
-{
-  ios_base::sync_with_stdio(0); cin.tie(0);
-  int n; cin >> n;
-  vector<long long> v(n);
-  for (long long& i : v) cin >> i;
-  SegmentTree<long long> myTree(v);
-  cout << myTree;
-  return 0;
-}
